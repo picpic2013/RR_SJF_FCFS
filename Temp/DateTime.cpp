@@ -6,6 +6,13 @@ const DateTime DateTime::UNKNOWN = DateTime(10086, 99, 99, 99);
 DateTime::DateTime() : DateTime(0, 0, 0, 0) {
 }
 
+DateTime::DateTime(int sec) {
+	this->sec = sec % 60;
+	this->min = (sec /= 60) % 60;
+	this->hour = (sec /= 60) % 60;
+	this->day = sec /= 24;
+}
+
 DateTime::DateTime(const DateTime& t) : DateTime(t.day, t.hour, t.min, t.sec){
 }
 
@@ -112,4 +119,8 @@ const int DateTime::operator-(const DateTime& t) const {
 		(this->hour - t.hour) * 3600 +
 		(this->min - t.min) * 60 +
 		(this->sec - t.sec);
+}
+
+DateTime::operator int() const {
+	return this->day * 3600 * 24 + this->hour * 3600 + this->min * 60 + this->sec;
 }

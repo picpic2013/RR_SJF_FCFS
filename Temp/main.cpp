@@ -6,7 +6,10 @@ int main() {
     cout << "Hello World!" << endl;
     DateTime d;
     for (int i = 0; i < 200; i++) {
-        cout << d << endl;
+        int dd = d;
+        DateTime ddd = DateTime(d);
+        DateTime dddd = DateTime(dd);
+        cout << d << "\t" << dd << "\t" << ddd << "\t" << dddd << endl;
         d.tickHour();
     }
     

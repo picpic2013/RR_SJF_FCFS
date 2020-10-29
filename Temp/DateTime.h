@@ -3,6 +3,7 @@
 class DateTime {
 public:
 	DateTime();
+	DateTime(int sec);
 	DateTime(const DateTime& t);
 	DateTime(const int day, const int hour, const int min, const int sec);
 	DateTime(const int hour, const int min);
@@ -27,6 +28,8 @@ public:
 	bool operator==(const DateTime& t) const;
 	bool operator!=(const DateTime& t) const;
 	const int operator-(const DateTime& t) const;
+
+	operator int() const;
 
 	const static DateTime UNKNOWN;
 
