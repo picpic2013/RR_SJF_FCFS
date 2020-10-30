@@ -68,7 +68,6 @@ bool TimeSimulator::update() {
 	}
 	// has job
 	if (this->sys.getCurrentJob() != JCB::EMPTY_JOB) {
-		this->sys.getCurrentJob().taskBegin(this->now);
 		// has finish
 		if (this->sys.getCurrentJob().hasFinished()) {
 			if (hasEvent) {
@@ -96,6 +95,8 @@ bool TimeSimulator::update() {
 					<< " ]... " << std::endl;
 			}
 		}
+
+		this->sys.getCurrentJob().taskBegin(this->now);
 	}
 	if (hasEvent) {
 		std::cout << "---------------------------------------------" << std::endl;
