@@ -7,10 +7,15 @@ DateTime::DateTime() : DateTime(0, 0, 0, 0) {
 }
 
 DateTime::DateTime(int sec) {
+	this->day = 0;
+	if (sec < 0) {
+		this->day = sec / (3600 * 24) - (sec % (3600 * 24) != 0);
+		sec = sec - this->day * 3600 * 24;
+	}
 	this->sec = sec % 60;
 	this->min = (sec /= 60) % 60;
 	this->hour = (sec /= 60) % 60;
-	this->day = sec /= 24;
+	this->day += sec /= 24;
 }
 
 DateTime::DateTime(const DateTime& t) : DateTime(t.day, t.hour, t.min, t.sec){
@@ -101,24 +106,6 @@ std::ostream& operator<<(std::ostream& out, const DateTime& date) {
 		<< std::setw(2) << std::setfill('0') << date.min << ":" 
 		<< std::setw(2) << std::setfill('0') << date.sec;
 	return out;
-}
-
-bool DateTime::operator==(const DateTime& t) const {
-	return this->day == t.day &&
-		this->hour == t.hour &&
-		this->min == t.min &&
-		this->sec == t.sec;
-}
-
-bool DateTime::operator!=(const DateTime& t) const {
-	return !(*this == t);
-}
-
-const int DateTime::operator-(const DateTime& t) const {
-	return (this->day - t.day) * 3600 * 24 +
-		(this->hour - t.hour) * 3600 +
-		(this->min - t.min) * 60 +
-		(this->sec - t.sec);
 }
 
 DateTime::operator int() const {

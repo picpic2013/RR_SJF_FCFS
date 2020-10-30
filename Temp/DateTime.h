@@ -25,9 +25,6 @@ public:
 	void setSec(const int sec);
 
 	friend std::ostream& operator<<(std::ostream& out, const DateTime& date);
-	bool operator==(const DateTime& t) const;
-	bool operator!=(const DateTime& t) const;
-	const int operator-(const DateTime& t) const;
 
 	operator int() const;
 
