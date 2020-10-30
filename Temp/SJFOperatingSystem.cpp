@@ -8,29 +8,36 @@ SJFOperatingSystem::~SJFOperatingSystem() {
 }
 
 void SJFOperatingSystem::registJob(const JCB& j) {
-	this->jcbList.push(j);
+	if (this->currentJob == JCB::EMPTY_JOB) {
+		this->currentJob = j;
+	}
+	else if (this->currentJob.getTimeRequired() - this->currentJob.getRunningTime() >
+		j.getTimeRequired() - j.getRunningTime()) {
+		this->currentJob.setTimeRequired(this->currentJob.getTimeRequired() -
+			this->currentJob.getRunningTime());
+		this->jcbList.push(this->currentJob);
+		this->currentJob = j;
+	}
+	else {
+		this->jcbList.push(j);
+	}
 }
 
 JCB& SJFOperatingSystem::getCurrentJob() {
-	if (this->jcbList.empty()) {
-		this->currentJob = JCB::EMPTY_JOB;
-		return this->currentJob;
-	}
-	if (this->currentJob != this->jcbList.top()) {
-		if (this->currentJob != JCB::EMPTY_JOB) {
-			this->jcbList.push(this->currentJob);
-		}
-		this->currentJob = this->jcbList.top();
-	}
 	return this->currentJob;
 }
 
 void SJFOperatingSystem::currentJobFinshCall() {
 	if (!this->jcbList.empty()) {
+		this->currentJob = this->jcbList.top();
 		this->jcbList.pop();
+	}
+	else {
+		this->currentJob = JCB::EMPTY_JOB;
 	}
 }
 
 bool SJFOperatingSystem::JobCmpByLength::operator()(const JCB& a, const JCB& b) {
-	return a.getTimeRequired() > b.getTimeRequired();
+	return (a.getTimeRequired() - a.getRunningTime()) > 
+		(b.getTimeRequired() - b.getRunningTime());
 }

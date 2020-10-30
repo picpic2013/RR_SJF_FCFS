@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     FCFSOperatingSystem sys_FCFS;
     SJFOperatingSystem sys_SJF;
-    TimeSimulator sim = TimeSimulator(sys_SJF, 60, 86400, TimeSimulator::EVERY_TIME_INTERVAL);
+    TimeSimulator sim = TimeSimulator(sys_SJF, 60, 86400, TimeSimulator::EVERY_KEY_EVENT);
     /*    
 1      JA       02：40     20      
 2      JB       02：50     30      
