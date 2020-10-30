@@ -8,7 +8,7 @@ using namespace std;
 int main() {
     FCFSOperatingSystem sys_FCFS;
     SJFOperatingSystem sys_SJF;
-    TimeSimulator sim = TimeSimulator(sys_SJF, 60, 86400, TimeSimulator::EVERY_KEY_EVENT);
+    TimeSimulator sim = TimeSimulator(sys_FCFS, 60, 86400, TimeSimulator::EVERY_KEY_EVENT);
     /*    
 1      JA       02：40     20      
 2      JB       02：50     30      
@@ -34,7 +34,8 @@ int main() {
         << "\t" << setw(16) << setfill(' ') << "Turnaround_Time"
         << "\t" << "Turnaround_Time_R" << endl;
     
-    
+    int totalTurnaroudTime = 0;
+    double totalRightTurnaroudTime = 0;
     for (auto i : sim.getEndList()) {
         cout << setw(3) << setfill(' ') << 
             i.getID() << setw(5) << setfill(' ') <<
@@ -46,5 +47,9 @@ int main() {
             i.getWaitTime() << "\t" <<
             i.getTotalTime() << "\t" <<
             i.getRightTotal() << endl;
+        totalTurnaroudTime += i.getTotalTime();
+        totalRightTurnaroudTime += i.getRightTotal();
     }
+    cout << "Avg turnaroud time: " << static_cast<double>(totalTurnaroudTime) / sim.getEndList().size() << " Second(s)" << 
+        endl << "Avg turnaroud time with right: " << totalRightTurnaroudTime / sim.getEndList().size() << endl;
 }
