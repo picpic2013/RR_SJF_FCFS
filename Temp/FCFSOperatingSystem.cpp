@@ -7,9 +7,6 @@ FCFSOperatingSystem::FCFSOperatingSystem() : OperatingSystem() {
 FCFSOperatingSystem::~FCFSOperatingSystem() {
 }
 
-void FCFSOperatingSystem::interrupt() {
-}
-
 void FCFSOperatingSystem::registJob(const JCB& j) {
 	this->jcbList.push(j);
 }

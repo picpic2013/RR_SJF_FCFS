@@ -6,7 +6,7 @@ public:
 	OperatingSystem();
 	~OperatingSystem();
 
-	virtual void interrupt() = 0;
+	virtual void interrupt();
 	virtual void registJob(const JCB& j) = 0;
 	virtual JCB& getCurrentJob() = 0;
 	virtual void currentJobFinshCall() = 0;

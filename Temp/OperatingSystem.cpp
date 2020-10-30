@@ -4,3 +4,6 @@ OperatingSystem::OperatingSystem() {
 
 OperatingSystem::~OperatingSystem() {
 }
+
+void OperatingSystem::interrupt() {
+}

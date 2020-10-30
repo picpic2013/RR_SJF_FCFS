@@ -7,7 +7,6 @@ public:
 	FCFSOperatingSystem();
 	~FCFSOperatingSystem();
 
-	virtual void interrupt();
 	virtual void registJob(const JCB& j);
 	virtual JCB& getCurrentJob();
 	virtual void currentJobFinshCall();
