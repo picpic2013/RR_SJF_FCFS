@@ -59,19 +59,19 @@ std::string JCB::getName() const {
 	return this->name;
 }
 
-int JCB::getTimeRequired() const {
+DateTime JCB::getTimeRequired() const {
 	return this->timeRequired;
 }
 
-int JCB::getWaitTime() const {
+DateTime JCB::getWaitTime() const {
 	return this->waitTime;
 }
 
-int JCB::getTotalTime() const {
+DateTime JCB::getTotalTime() const {
 	return this->totalTime;
 }
 
-int JCB::getRunningTime() const {
+DateTime JCB::getRunningTime() const {
 	return this->runningTime;
 }
 
@@ -80,7 +80,7 @@ bool JCB::hasFinished() const {
 }
 
 void JCB::runJob(int runTime) {
-	this->runningTime += runTime;
+	this->runningTime = this->runningTime + runTime;
 }
 
 DateTime JCB::getSubmitTime() const {

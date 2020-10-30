@@ -20,10 +20,10 @@ public:
 	
 	int getID() const;
 	std::string getName() const;
-	int getTimeRequired() const;
-	int getWaitTime() const;
-	int getTotalTime() const;
-	int getRunningTime() const;
+	DateTime getTimeRequired() const;
+	DateTime getWaitTime() const;
+	DateTime getTotalTime() const;
+	DateTime getRunningTime() const;
 	DateTime getSubmitTime() const;
 	DateTime getBeginTime() const;
 	DateTime getEndTime() const;
@@ -39,7 +39,7 @@ public:
 private:
 	int id;
 	std::string name;
-	int timeRequired, waitTime, totalTime, runningTime;
+	DateTime timeRequired, waitTime, totalTime, runningTime;
 	DateTime submitTime, beginTime, endTime;
 	double rightTotal;
 };

@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <iomanip>
 #include "FCFSOperatingSystem.h"
 #include "SJFOperatingSystem.h"
 #include "TimeSimulator.h"
@@ -22,7 +23,28 @@ int main() {
     sim.registerJob(JCB(5, "JE", DateTime(3, 5), 6 * 60));
     
     sim.init(DateTime(2, 40));
-    for (int i = 0; sim.getNow() < DateTime(5, 0); i++) {
-         sim.update();
+    while (sim.update());
+
+    cout << setw(3) << setfill(' ') << "ID" << setw(5) << setfill(' ') << "Name" 
+        << "\t" << setw(16) << setfill(' ') << "Job_Submit_Time" 
+        << "\t" << setw(16) << setfill(' ') << "Job_Required_Time"
+        << "\t" << setw(16) << setfill(' ') << "Job_Begin_Time"
+        << "\t" << setw(16) << setfill(' ') << "Job_End_Time"
+        << "\t" << setw(16) << setfill(' ') << "Job_Wait_Time"
+        << "\t" << setw(16) << setfill(' ') << "Turnaround_Time"
+        << "\t" << "Turnaround_Time_R" << endl;
+    
+    
+    for (auto i : sim.getEndList()) {
+        cout << setw(3) << setfill(' ') << 
+            i.getID() << setw(5) << setfill(' ') <<
+            i.getName() << "\t" <<
+            i.getSubmitTime() << "\t" <<
+            i.getTimeRequired() << "\t" <<
+            i.getBeginTime() << "\t" <<
+            i.getEndTime() << "\t" <<
+            i.getWaitTime() << "\t" <<
+            i.getTotalTime() << "\t" <<
+            i.getRightTotal() << endl;
     }
 }

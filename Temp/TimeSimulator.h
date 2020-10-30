@@ -22,12 +22,13 @@ public:
 	void init(const DateTime& t = DateTime::UNKNOWN);
 	void setTimeInterval(const DateTime& t);
 	void setInterruptInterval(const DateTime& t);
-	void update();
+	bool update();
 	void registerJob(const JCB& jcb);
 	void setOutputLevel(OutputLevel level);
 	OutputLevel getOuputLevel() const;
 
 	const DateTime& getNow() const;
+	const std::vector<JCB>& getEndList() const;
 
 private:
 	DateTime now, nextInterrupt, interruptInterval, timeInterval;
@@ -39,4 +40,5 @@ private:
 	};
 	
 	std::priority_queue<JCB, std::vector<JCB>, JobCmpBySubmitTime> jcbList;
+	std::vector<JCB> endList;
 };

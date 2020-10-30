@@ -13,8 +13,6 @@ void SJFOperatingSystem::registJob(const JCB& j) {
 	}
 	else if (this->currentJob.getTimeRequired() - this->currentJob.getRunningTime() >
 		j.getTimeRequired() - j.getRunningTime()) {
-		this->currentJob.setTimeRequired(this->currentJob.getTimeRequired() -
-			this->currentJob.getRunningTime());
 		this->jcbList.push(this->currentJob);
 		this->currentJob = j;
 	}

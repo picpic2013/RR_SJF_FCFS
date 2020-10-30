@@ -30,7 +30,7 @@ void TimeSimulator::setInterruptInterval(const DateTime& t) {
 	this->interruptInterval = t;
 }
 
-void TimeSimulator::update() {
+bool TimeSimulator::update() {
 	bool hasEvent = this->outputLevel == EVERY_TIME_INTERVAL ||
 		(!this->jcbList.empty() && this->jcbList.top().getSubmitTime() <= this->now) ||
 		this->now >= this->nextInterrupt ||
@@ -76,6 +76,7 @@ void TimeSimulator::update() {
 					<< " ] Finished." << std::endl;
 			}
 			this->sys.getCurrentJob().taskFinish(this->now);
+			this->endList.push_back(sys.getCurrentJob());
 			this->sys.currentJobFinshCall();
 		}
 
@@ -101,6 +102,10 @@ void TimeSimulator::update() {
 	}
 	// update time
 	this->now = this->now + this->timeInterval;
+	if (this->jcbList.empty() && sys.getCurrentJob() == JCB::EMPTY_JOB) {
+		return false;
+	}
+	return true;
 }
 
 void TimeSimulator::registerJob(const JCB& jcb) {
@@ -117,6 +122,10 @@ TimeSimulator::OutputLevel TimeSimulator::getOuputLevel() const {
 
 const DateTime& TimeSimulator::getNow() const {
 	return this->now;
+}
+
+const std::vector<JCB>& TimeSimulator::getEndList() const {
+	return this->endList;
 }
 
 bool TimeSimulator::JobCmpBySubmitTime::operator()(const JCB& a, const JCB& b) {
