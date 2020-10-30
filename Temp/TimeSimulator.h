@@ -1,13 +1,22 @@
 #pragma once
-#include <map>
+#include <vector>
+#include <queue>
+#include <iostream>
 #include "DateTime.h"
 #include "OperatingSystem.h"
 
 class TimeSimulator {
 public:
+	enum OutputLevel {
+		SILENT,
+		EVERY_KEY_EVENT,
+		EVERY_TIME_INTERVAL
+	};
 	TimeSimulator(OperatingSystem& sys, 
 		const DateTime timeInterval, 
-		const DateTime interruptInterval);
+		const DateTime interruptInterval, 
+		const OutputLevel outputLevel
+	);
 	~TimeSimulator();
 
 	void init(const DateTime& t = DateTime::UNKNOWN);
@@ -15,52 +24,19 @@ public:
 	void setInterruptInterval(const DateTime& t);
 	void update();
 	void registerJob(const JCB& jcb);
+	void setOutputLevel(OutputLevel level);
+	OutputLevel getOuputLevel() const;
+
+	const DateTime& getNow() const;
 
 private:
 	DateTime now, nextInterrupt, interruptInterval, timeInterval;
 	OperatingSystem& sys;
+	OutputLevel outputLevel;
+
+	struct JobCmpBySubmitTime {
+		bool operator()(const JCB& a, const JCB& b);
+	};
 	
-	std::map<DateTime, JCB> jcbList;
+	std::priority_queue<JCB, std::vector<JCB>, JobCmpBySubmitTime> jcbList;
 };
-
-TimeSimulator::TimeSimulator(OperatingSystem& sys, 
-	const DateTime timeInterval, const DateTime interruptInterval) :
-	sys(sys), timeInterval(timeInterval), interruptInterval(timeInterval) {
-	init();
-}
-
-TimeSimulator::~TimeSimulator() {
-}
-
-void TimeSimulator::init(const DateTime& t = DateTime::UNKNOWN) {
-	if (t == DateTime::UNKNOWN) {
-		this->now = DateTime();
-	}
-	else {
-		this->now = t;
-	}
-	this->nextInterrupt = this->now + interruptInterval;
-}
-
-void TimeSimulator::setTimeInterval(const DateTime& t) {
-	this->timeInterval = t;
-}
-
-void TimeSimulator::setInterruptInterval(const DateTime& t) {
-	this->interruptInterval = t;
-}
-
-void TimeSimulator::update() {
-	if (this->now > this->nextInterrupt) {
-		this->sys.interrupt();
-		this->nextInterrupt = this->nextInterrupt + this->interruptInterval;
-	}
-	if (this->jcbList.find(this->now) != this->jcbList.end()) {
-		sys.registJob(this->jcbList[this->now]);
-	}
-	this->now = this->now + this->timeInterval;
-}
-
-void TimeSimulator::registerJob(const JCB& jcb) {
-	this->jcbList.insert(std::make_pair(jcb.getBeginTime(), jcb));
-}

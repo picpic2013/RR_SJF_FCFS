@@ -1,9 +1,14 @@
 #include "JCB.h"
 
+JCB JCB::EMPTY_JOB = JCB(-10086, "__EMPTY_JOB__", 0, 0);
+
+JCB::JCB() : JCB(-1, "Unnamed", DateTime::UNKNOWN, -1) {
+}
+
 JCB::JCB(const JCB& j) : id(j.id), name(j.name), submitTime(j.submitTime),
 	timeRequired(j.timeRequired), waitTime(j.waitTime), totalTime(j.totalTime),
 	beginTime(j.beginTime), endTime(j.endTime),
-	rightTotal(j.rightTotal) {
+	rightTotal(j.rightTotal), runningTime(0) {
 }
 
 JCB::JCB(int id, const std::string& name,
@@ -11,7 +16,7 @@ JCB::JCB(int id, const std::string& name,
 	id(id), name(name), submitTime(submitTime), 
 	timeRequired(timeRequired), waitTime(-1), totalTime(-1), 
 	beginTime(DateTime::UNKNOWN), endTime(DateTime::UNKNOWN), 
-	rightTotal(-1){
+	rightTotal(-1), runningTime(0){
 }
 
 JCB::~JCB() {
@@ -66,6 +71,18 @@ int JCB::getTotalTime() const {
 	return this->totalTime;
 }
 
+int JCB::getRunningTime() const {
+	return this->runningTime;
+}
+
+bool JCB::hasFinished() const {
+	return this->runningTime >= this->timeRequired;
+}
+
+void JCB::runJob(int runTime) {
+	this->runningTime += runTime;
+}
+
 DateTime JCB::getSubmitTime() const {
 	return this->submitTime;
 }
@@ -84,4 +101,12 @@ double JCB::getRightTotal() const {
 
 void JCB::setTimeRequired(const int t) {
 	this->timeRequired = t;
+}
+
+bool JCB::operator ==(const JCB& j) {
+	return this->id == j.id;
+}
+
+bool JCB::operator !=(const JCB& j) {
+	return this->id != j.id;
 }

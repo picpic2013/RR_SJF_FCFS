@@ -7,9 +7,9 @@ public:
 	~OperatingSystem();
 
 	virtual void interrupt() = 0;
-	void registJob(const JCB& j);
+	virtual void registJob(const JCB& j) = 0;
+	virtual JCB& getCurrentJob() = 0;
+	virtual void currentJobFinshCall() = 0;
 
 private:
-	std::vector<JCB> jcbList;
-	virtual bool jobCompairFunction(const JCB& a, const JCB& b) = 0;
 };
