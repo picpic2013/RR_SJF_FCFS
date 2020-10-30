@@ -3,6 +3,7 @@
 #include "FCFSOperatingSystem.h"
 #include "SJFOperatingSystem.h"
 #include "HRRNOperatingSystem.h"
+#include "RROperatingSystem.h"
 #include "TimeSimulator.h"
 using namespace std;
 
@@ -10,7 +11,8 @@ int main() {
     FCFSOperatingSystem sys_FCFS;
     SJFOperatingSystem sys_SJF;
     HRRNOperatingSystem sys_HRRN;
-    TimeSimulator sim = TimeSimulator(sys_HRRN, 60, 60, TimeSimulator::EVERY_TIME_INTERVAL);
+    RROperatingSystem sys_RR;
+    TimeSimulator sim = TimeSimulator(sys_RR, 60, 60, TimeSimulator::EVERY_TIME_INTERVAL);
 /*    
 1      JA       02：40     20      
 2      JB       02：50     30      

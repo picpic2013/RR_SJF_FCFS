@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="FCFSOperatingSystem.cpp" />
+    <ClCompile Include="HRRNOperatingSystem.cpp" />
     <ClCompile Include="JCB.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OperatingSystem.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="HRRNOperatingSystem.h" />
     <ClInclude Include="JCB.h" />
     <ClInclude Include="OperatingSystem.h" />
+    <ClInclude Include="RROperatingSystem.h" />
     <ClInclude Include="SJFOperatingSystem.h" />
     <ClInclude Include="TimeSimulator.h" />
   </ItemGroup>
