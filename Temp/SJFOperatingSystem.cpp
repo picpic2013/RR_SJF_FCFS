@@ -8,11 +8,11 @@ SJFOperatingSystem::~SJFOperatingSystem() {
 }
 
 void SJFOperatingSystem::registJob(const JCB& j) {
+	JobCmpByLength jc;
 	if (this->currentJob == JCB::EMPTY_JOB) {
 		this->currentJob = j;
 	}
-	else if (this->currentJob.getTimeRequired() - this->currentJob.getRunningTime() >
-		j.getTimeRequired() - j.getRunningTime()) {
+	else if (jc(this->currentJob, j)) {
 		this->jcbList.push(this->currentJob);
 		this->currentJob = j;
 	}

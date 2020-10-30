@@ -5,5 +5,5 @@ OperatingSystem::OperatingSystem() {
 OperatingSystem::~OperatingSystem() {
 }
 
-void OperatingSystem::interrupt() {
+void OperatingSystem::interrupt(const DateTime& now) {
 }

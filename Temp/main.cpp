@@ -2,13 +2,15 @@
 #include <iomanip>
 #include "FCFSOperatingSystem.h"
 #include "SJFOperatingSystem.h"
+#include "HRRNOperatingSystem.h"
 #include "TimeSimulator.h"
 using namespace std;
 
 int main() {
     FCFSOperatingSystem sys_FCFS;
     SJFOperatingSystem sys_SJF;
-    TimeSimulator sim = TimeSimulator(sys_FCFS, 1, 86400, TimeSimulator::EVERY_KEY_EVENT);
+    HRRNOperatingSystem sys_HRRN;
+    TimeSimulator sim = TimeSimulator(sys_HRRN, 60, 60, TimeSimulator::EVERY_TIME_INTERVAL);
 /*    
 1      JA       02：40     20      
 2      JB       02：50     30      

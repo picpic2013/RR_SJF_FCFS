@@ -60,7 +60,7 @@ bool TimeSimulator::update() {
 		if (hasEvent) {
 			std::cout << "Calling Operating System Interrupt Function..." << std::endl;
 		}
-		this->sys.interrupt();
+		this->sys.interrupt(this->now);
 		if (hasEvent) {
 			std::cout << "Finsh Operating System Interrupt Function." << std::endl;
 		}

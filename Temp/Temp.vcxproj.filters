@@ -56,5 +56,8 @@
     <ClInclude Include="SJFOperatingSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="HRRNOperatingSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

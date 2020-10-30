@@ -8,7 +8,7 @@ JCB::JCB() : JCB(-1, "Unnamed", DateTime::UNKNOWN, -1) {
 JCB::JCB(const JCB& j) : id(j.id), name(j.name), submitTime(j.submitTime),
 	timeRequired(j.timeRequired), waitTime(j.waitTime), totalTime(j.totalTime),
 	beginTime(j.beginTime), endTime(j.endTime),
-	rightTotal(j.rightTotal), runningTime(0) {
+	rightTotal(j.rightTotal), runningTime(j.runningTime) {
 }
 
 JCB::JCB(int id, const std::string& name,
@@ -23,7 +23,9 @@ JCB::~JCB() {
 }
 
 void JCB::update(const DateTime& now) {
-	this->waitTime = now - this->submitTime;
+	if (!this->hasBegin()) {
+		this->waitTime = now - this->submitTime;
+	}
 }
 
 bool JCB::hasBegin() const {
