@@ -19,5 +19,7 @@ JCB& FCFSOperatingSystem::getCurrentJob() {
 }
 
 void FCFSOperatingSystem::currentJobFinshCall() {
-	this->jcbList.pop();
+	if (!this->jcbList.empty()) {
+		this->jcbList.pop();
+	}
 }

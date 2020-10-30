@@ -33,6 +33,9 @@
     <ClCompile Include="FCFSOperatingSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SJFOperatingSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JCB.h">
@@ -48,6 +51,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="FCFSOperatingSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SJFOperatingSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

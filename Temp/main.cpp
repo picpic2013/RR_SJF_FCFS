@@ -1,11 +1,13 @@
 ﻿#include <iostream>
 #include "FCFSOperatingSystem.h"
+#include "SJFOperatingSystem.h"
 #include "TimeSimulator.h"
 using namespace std;
 
 int main() {
-    FCFSOperatingSystem sys;
-    TimeSimulator sim = TimeSimulator(sys, 60, 86400, TimeSimulator::EVERY_KEY_EVENT);
+    FCFSOperatingSystem sys_FCFS;
+    SJFOperatingSystem sys_SJF;
+    TimeSimulator sim = TimeSimulator(sys_SJF, 60, 86400, TimeSimulator::EVERY_TIME_INTERVAL);
     /*    
 1      JA       02：40     20      
 2      JB       02：50     30      
@@ -19,7 +21,7 @@ int main() {
     sim.registerJob(JCB(4, "JD", DateTime(3, 0), 24 * 60));
     sim.registerJob(JCB(5, "JE", DateTime(3, 5), 6 * 60));
     
-
+    sim.init(DateTime(2, 40));
     for (int i = 0; sim.getNow() < DateTime(5, 0); i++) {
          sim.update();
     }
