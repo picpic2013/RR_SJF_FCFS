@@ -12,7 +12,7 @@ int main() {
     SJFOperatingSystem sys_SJF;
     HRRNOperatingSystem sys_HRRN;
     RROperatingSystem sys_RR;
-    TimeSimulator sim = TimeSimulator(sys_RR, 60, 60, TimeSimulator::EVERY_TIME_INTERVAL);
+    TimeSimulator sim = TimeSimulator(sys_RR, 1, 1, TimeSimulator::EVERY_TIME_INTERVAL);
 /*    
 1      JA       02：40     20      
 2      JB       02：50     30      
@@ -21,22 +21,24 @@ int main() {
 5      JE       03：05     6        
 */
 
-    
+    /*
     sim.registerJob(JCB(1, "JA", DateTime(2, 40), 20 * 60));
     sim.registerJob(JCB(2, "JB", DateTime(2, 50), 30 * 60));
     sim.registerJob(JCB(3, "JC", DateTime(2, 55), 10 * 60));
     sim.registerJob(JCB(4, "JD", DateTime(3, 0), 24 * 60));
     sim.registerJob(JCB(5, "JE", DateTime(3, 5), 6 * 60));
     sim.init(DateTime(2, 40));
+    */
     
     
-    /*
+    
+    
     sim.registerJob(JCB(1, "A", 0, 3));
     sim.registerJob(JCB(2, "B", 2, 6));
     sim.registerJob(JCB(3, "C", 4, 4));
     sim.registerJob(JCB(4, "D", 6, 5));
     sim.registerJob(JCB(5, "E", 8, 2));
-    */
+    
     
     
     while (sim.update());

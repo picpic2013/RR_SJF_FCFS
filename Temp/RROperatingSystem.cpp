@@ -7,8 +7,10 @@ RROperatingSystem::~RROperatingSystem() {
 }
 
 void RROperatingSystem::interrupt(const DateTime& now) {
-	this->jcbList.push_back(this->jcbList.front());
-	this->jcbList.pop_front();
+	if (!this->jcbList.empty()) {
+		this->jcbList.push_back(this->jcbList.front());
+		this->jcbList.pop_front();
+	}
 }
 
 void RROperatingSystem::registJob(const JCB& j, const DateTime& now) {
