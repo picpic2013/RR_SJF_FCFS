@@ -8,9 +8,9 @@ public:
 	SJFOperatingSystem();
 	~SJFOperatingSystem();
 
-	virtual void registJob(const JCB& j);
-	virtual JCB& getCurrentJob();
-	virtual void currentJobFinshCall();
+	virtual void registJob(const JCB& j, const DateTime& now);
+	virtual JCB& getCurrentJob(const DateTime& now);
+	virtual void currentJobFinshCall(const DateTime& now);
 private:
 	struct JobCmpByLength {
 		bool operator()(const JCB& a, const JCB& b);

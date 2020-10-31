@@ -146,6 +146,7 @@
     <ClCompile Include="JCB.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OperatingSystem.cpp" />
+    <ClCompile Include="RROperatingSystem.cpp" />
     <ClCompile Include="SJFOperatingSystem.cpp" />
     <ClCompile Include="TimeSimulator.cpp" />
   </ItemGroup>

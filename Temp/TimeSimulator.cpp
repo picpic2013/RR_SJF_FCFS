@@ -34,7 +34,7 @@ bool TimeSimulator::update() {
 	bool hasEvent = this->outputLevel == EVERY_TIME_INTERVAL ||
 		(!this->jcbList.empty() && this->jcbList.top().getSubmitTime() <= this->now) ||
 		this->now >= this->nextInterrupt ||
-		(this->sys.getCurrentJob() != JCB::EMPTY_JOB && this->sys.getCurrentJob().hasFinished());
+		(this->sys.getCurrentJob(this->now) != JCB::EMPTY_JOB && this->sys.getCurrentJob(this->now).hasFinished());
 	if (this->outputLevel == SILENT) {
 		hasEvent = false;
 	}
@@ -48,7 +48,7 @@ bool TimeSimulator::update() {
 			std::cout << "Start Registering Job [ " << this->jcbList.top().getName()
 				<< " ]... " << std::endl;
 		}
-		this->sys.registJob(this->jcbList.top());
+		this->sys.registJob(this->jcbList.top(), this->now);
 		if (hasEvent) {
 			std::cout << "Finsh Registering Job [ " << this->jcbList.top().getName()
 				<< " ]... " << std::endl;
@@ -67,43 +67,43 @@ bool TimeSimulator::update() {
 		this->nextInterrupt = this->nextInterrupt + this->interruptInterval;
 	}
 	// has job
-	if (this->sys.getCurrentJob() != JCB::EMPTY_JOB) {
+	if (this->sys.getCurrentJob(this->now) != JCB::EMPTY_JOB) {
+		this->sys.getCurrentJob(this->now).taskBegin(this->now);
+		// run job
+		if (this->outputLevel == EVERY_TIME_INTERVAL) {
+			std::cout << "Start Running Job [ " << this->sys.getCurrentJob(this->now).getName()
+				<< " ]... " << std::endl;
+		}
+		if (hasEvent && this->outputLevel == EVERY_KEY_EVENT) {
+			std::cout << "Current Running Job [ " << this->sys.getCurrentJob(this->now).getName()
+				<< " ]... " << std::endl;
+		}
+		this->sys.getCurrentJob(this->now).runJob(this->timeInterval);
+		if (this->outputLevel == EVERY_TIME_INTERVAL) {
+			std::cout << "Stop Running Job [ " << this->sys.getCurrentJob(this->now).getName()
+				<< " ]... " << std::endl;
+		}
+		// update time
+		this->now = this->now + this->timeInterval;
 		// has finish
-		if (this->sys.getCurrentJob().hasFinished()) {
+		if (this->sys.getCurrentJob(this->now).hasFinished()) {
 			if (hasEvent) {
-				std::cout << "Job [ " << this->sys.getCurrentJob().getName()
+				std::cout << "Job [ " << this->sys.getCurrentJob(this->now).getName()
 					<< " ] Finished." << std::endl;
 			}
-			this->sys.getCurrentJob().taskFinish(this->now);
-			this->endList.push_back(sys.getCurrentJob());
-			this->sys.currentJobFinshCall();
+			this->sys.getCurrentJob(this->now).taskFinish(this->now);
+			this->endList.push_back(sys.getCurrentJob(this->now));
+			this->sys.currentJobFinshCall(this->now);
 		}
-
-		if (this->sys.getCurrentJob() != JCB::EMPTY_JOB) {
-			// run job
-			if (this->outputLevel == EVERY_TIME_INTERVAL) {
-				std::cout << "Start Running Job [ " << this->sys.getCurrentJob().getName()
-					<< " ]... " << std::endl;
-			}
-			if (hasEvent && this->outputLevel == EVERY_KEY_EVENT) {
-				std::cout << "Current Running Job [ " << this->sys.getCurrentJob().getName()
-					<< " ]... " << std::endl;
-			}
-			this->sys.getCurrentJob().runJob(this->timeInterval);
-			if (this->outputLevel == EVERY_TIME_INTERVAL) {
-				std::cout << "Stop Running Job [ " << this->sys.getCurrentJob().getName()
-					<< " ]... " << std::endl;
-			}
-		}
-
-		this->sys.getCurrentJob().taskBegin(this->now);
+	}
+	else {
+		// update time
+		this->now = this->now + this->timeInterval;
 	}
 	if (hasEvent) {
 		std::cout << "---------------------------------------------" << std::endl;
 	}
-	// update time
-	this->now = this->now + this->timeInterval;
-	if (this->jcbList.empty() && sys.getCurrentJob() == JCB::EMPTY_JOB) {
+	if (this->jcbList.empty() && sys.getCurrentJob(this->now) == JCB::EMPTY_JOB) {
 		return false;
 	}
 	return true;

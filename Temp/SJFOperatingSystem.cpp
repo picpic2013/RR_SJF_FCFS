@@ -7,7 +7,7 @@ SJFOperatingSystem::SJFOperatingSystem() : OperatingSystem() {
 SJFOperatingSystem::~SJFOperatingSystem() {
 }
 
-void SJFOperatingSystem::registJob(const JCB& j) {
+void SJFOperatingSystem::registJob(const JCB& j, const DateTime& now) {
 	JobCmpByLength jc;
 	if (this->currentJob == JCB::EMPTY_JOB) {
 		this->currentJob = j;
@@ -21,11 +21,11 @@ void SJFOperatingSystem::registJob(const JCB& j) {
 	}
 }
 
-JCB& SJFOperatingSystem::getCurrentJob() {
+JCB& SJFOperatingSystem::getCurrentJob(const DateTime& now) {
 	return this->currentJob;
 }
 
-void SJFOperatingSystem::currentJobFinshCall() {
+void SJFOperatingSystem::currentJobFinshCall(const DateTime& now) {
 	if (!this->jcbList.empty()) {
 		this->currentJob = this->jcbList.top();
 		this->jcbList.pop();

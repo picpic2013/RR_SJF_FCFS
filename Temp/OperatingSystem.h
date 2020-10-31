@@ -7,9 +7,9 @@ public:
 	~OperatingSystem();
 
 	virtual void interrupt(const DateTime& now);
-	virtual void registJob(const JCB& j) = 0;
-	virtual JCB& getCurrentJob() = 0;
-	virtual void currentJobFinshCall() = 0;
+	virtual void registJob(const JCB& j, const DateTime& now) = 0;
+	virtual JCB& getCurrentJob(const DateTime& now) = 0;
+	virtual void currentJobFinshCall(const DateTime& now) = 0;
 
 private:
 };
